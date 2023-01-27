@@ -1,0 +1,13 @@
+{
+  "name": "bounty-bot",
+  "version": "0.0.0",
+  "description": "BountyBot",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}

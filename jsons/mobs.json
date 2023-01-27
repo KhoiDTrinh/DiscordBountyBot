@@ -1,0 +1,153 @@
+{
+  "dungeons": [
+    "Abnormal Spider",
+    "Psychic Snail",
+    "Sunburned Golem",
+    "Ooze",
+    "Giant Cyclop",
+    "Bone Beast",
+    "Tormentor",
+    "Ice Phantom",
+    "Balor",
+    "Leviathan",
+    "Dreadlord"
+  ],
+  "summons": {
+    "low": [
+      "Lord Ribbit",
+      "Glaucus",
+      "Constrictor",
+      "Griffin",
+      "Infester",
+      "Scarab",
+      "Fleshhunter",
+      "Hannibal",
+      "Spinebreaker",
+      "Orcus",
+      "Strong Bones",
+      "Gargoyle",
+      "Devourer",
+      "Ifrit"
+    ],
+    "high": [
+      "Zincarus",
+      "Iceheart",
+      "Anomaly",
+      "Shadow Fiend",
+      "Proteus",
+      "Jaws",
+      "King of Bones",
+      "Horror"
+    ]
+  },
+  "ff": {
+    "1": [
+      "Fighting Dummy",
+      "Giant Rat",
+      "Huge Bug",
+      "Haunted Doll",
+      "Overgrown Spider",
+      "Creepy Beetle",
+      "Scrawny Goblin"
+    ],
+    "2": [
+      "Green Crawler",
+      "Cursed Bat",
+      "Wood Spider",
+      "Bloodsucker",
+      "Goblin Elder",
+      "Serpent",
+      "Witchdoctor"
+    ],
+    "3": [
+      "Sand Reaver",
+      "Gremlin",
+      "Minion",
+      "Goblin",
+      "Lion",
+      "Scorpion",
+      "Mummy"
+    ],
+    "4": [
+      "Slimy Slug",
+      "Guard Goblin",
+      "Crocodile",
+      "Ravager",
+      "Enormous Toad",
+      "Lurker",
+      "Swarm Soldier"
+    ],
+    "5": [
+      "Bogard",
+      "Cyclops Worker",
+      "Hermit",
+      "Troll",
+      "Shadow Goblin",
+      "Orc Warrior",
+      "Orc Savager"
+    ],
+    "6": [
+      "Skeleton",
+      "Banshee",
+      "Zombie",
+      "Armored Skeleton",
+      "Ghoul",
+      "Vampire",
+      "Skeleton Commander"
+    ],
+    "7": [
+      "Lava Eater",
+      "Observer",
+      "Pit Viper",
+      "Raptor",
+      "Deathgazer",
+      "Chaos Seeker",
+      "Grand Butcher"
+    ],
+    "8": [
+      "Arctic Wolfear",
+      "Yeti",
+      "Crystal Golem",
+      "Jin",
+      "Frostsaber",
+      "Nightmare",
+      "Frost Giant"
+    ],
+    "9": [
+      "Cursebearer",
+      "Primal Troll",
+      "Swamp Keeper",
+      "Stone Giant",
+      "Treant",
+      "Amarok",
+      "Black Phoenix"
+    ],
+    "10": [
+      "Abyss Worm",
+      "Devil Whale",
+      "Greenbeard",
+      "Wavehil",
+      "Charybdis",
+      "Oceanus",
+      "Nereus"
+    ],
+    "11": [
+      "Crypt Guardian",
+      "Spectre",
+      "Draugar",
+      "Darkmaster",
+      "Lich",
+      "Wraith",
+      "Reaper"
+    ],
+    "12": [
+      "Carnage",
+      "Grunt",
+      "Titan",
+      "Demogorgon",
+      "Horned Demon",
+      "Dragonkin",
+      "Terror"
+    ]
+  }
+}

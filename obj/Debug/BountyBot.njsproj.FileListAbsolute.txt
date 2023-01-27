@@ -1,0 +1,3 @@
+C:\Users\khoit\Desktop\Programs\Discord Bots\BountyBot\obj\Debug\BountyBot.njsproj.AssemblyReference.cache
+C:\Users\khoit\Desktop\Programs\Discord Bots\BountyBot\obj\Debug\BountyBot.njsproj.CoreCompileInputs.cache
+C:\Users\khoit\Desktop\Programs\Discord Bots\BountyBot\bin\Microsoft.NodejsTools.WebRole.dll
