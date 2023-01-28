@@ -29,8 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".env" />
-    <Content Include="commands\spawnace.js" />
-    <Content Include="commands\spawnhell.js" />
     <Content Include="commands\startathenapings.js" />
     <Content Include="commands\bountydone.js">
       <SubType>Code</SubType>

@@ -320,14 +320,19 @@ async function checkAuraMessage(message) {
 
 async function checkTrollMessage(message) {
     try {
-        const channel = message.client.channels.cache.get(message.channelId);
 
-        if (!message.content.includes("killed Dreadlord and obtained Necromancer") && !message.content.includes("and obtained Wight King"))
+        if (!message.content.includes("Global: "))
             return;
 
-        str = "Congrats, Hiro! That's one of your multis, right?";
-        channel.send(str);
-        console.log(str);
+        if (message.content.includes("killed Dreadlord and obtained Necromancer") ||
+            message.content.includes("and obtained Wight King") ||
+            message.content.includes("killed Abnormal Spider and obtained Renegade")
+        ) {
+            const channel = message.client.channels.cache.get(message.channelId);
+            str = "Congrats, Hiro! That's one of your multis, right?";
+            channel.send(str);
+            console.log(str);
+        }
     }
     catch (err) {
         console.log('Error in processing Troll Notification');
