@@ -29,6 +29,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".env" />
+    <Content Include="commands\bountyhours.js" />
+    <Content Include="commands\ischronosdoneyet.js" />
+    <Content Include="commands\startchronospings.js" />
     <Content Include="commands\startathenapings.js" />
     <Content Include="commands\bountydone.js">
       <SubType>Code</SubType>

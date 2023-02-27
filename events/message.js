@@ -122,9 +122,16 @@ function filterMobsToPing(mobsToPing, ping_history) {
 
 function getUsersToPing(bounty_preferences, bountydone, mobsToPing) {
     checkBountydoneNewDay(bountydone);
+
+    let currentTime = new Date();
+    let hour = currentTime.getUTCHours();
+    let minutes = currentTime.getUTCMinutes();
+
     const usersToPing = new Object();
     for (const id of Object.keys(bounty_preferences)) {
         if (bountydone.arr.includes(id))
+            continue;
+        if (checkbountyhours_inactivetime(bounty_preferences[id], hour, minutes))
             continue;
         const target_list = bounty_preferences[id].bounties;
         for (const mobToPing of mobsToPing) {
@@ -138,6 +145,50 @@ function getUsersToPing(bounty_preferences, bountydone, mobsToPing) {
         }
     }
     return usersToPing;
+}
+
+function checkbountyhours_inactivetime(user_preferences, hour, minutes) {
+    //True means inactive so don't ping
+
+    if (!user_preferences.hasOwnProperty("bountyhours"))
+        return false;
+
+    let starthour = user_preferences.bountyhours.starthour;
+    let startminutes = user_preferences.bountyhours.startminutes;
+    let endhour = user_preferences.bountyhours.endhour;
+    let endminutes = user_preferences.bountyhours.endminutes;
+
+    if (starthour == endhour && startminutes == endminutes)
+        return true;
+
+    let startbeforeend = true;      //Two possibilities, start time before end time or end time before start time
+    if (endhour < starthour || (endhour == starthour && endminutes < startminutes))
+        startbeforeend = false;
+
+    if (startbeforeend) {
+        if (hour < starthour)
+            return true;
+        if (hour == starthour && minutes < startminutes)
+            return true;
+        if (hour > endhour)
+            return true;
+        if (hour == endhour && minutes > endminutes)
+            return true;
+        return false;
+    }
+    else {
+        if (hour > starthour)
+            return false;
+        if (hour == starthour && minutes > startminutes)
+            return false;
+        if (hour < endhour)
+            return false;
+        if (hour == endhour && minutes < endminutes)
+            return false;
+        return true;
+    }
+
+    return false;
 }
 
 function checkBountydoneNewDay(bountydone) {
@@ -179,6 +230,9 @@ function checkBountyMessage(message) {
 
     const channel = message.client.channels.cache.get(message.channelId);
     for (const id of Object.keys(usersToPing)) {
+        if (id == message.author.id)
+            continue;
+
         let str = '<@' + id + '> ';
         str += usersToPing[id].join(', ');
         try {
@@ -324,12 +378,23 @@ async function checkTrollMessage(message) {
         if (!message.content.includes("Global: "))
             return;
 
-        if (message.content.includes("killed Dreadlord and obtained Necromancer") ||
-            message.content.includes("and obtained Wight King") ||
-            message.content.includes("killed Abnormal Spider and obtained Renegade")
+        if ((message.content.includes("killed") && message.content.includes("and obtained")) ||
+            (message.content.includes("Treasure and obtained")) ||
+            (message.content.includes("completed") && message.content.includes("Bounty") && message.content.includes("and obtained"))
         ) {
+            const hiroID = "468512328757805059";
             const channel = message.client.channels.cache.get(message.channelId);
-            str = "Congrats, Hiro! That's one of your multis, right?";
+            let str = "";
+            if (message.content.includes("Hiro")) {
+                str = "Congrats," + '<@' + hiroID + '>! ' + "Finally found something on your main account!!?!!";
+            }
+            else if (message.content.includes("Chronos")) {
+                const chronosID = "573415328466599936";
+                str = "Congrats," + '<@' + chronosID + '>! ' + "You deserve it more than anyone else here!";
+            }
+            else {
+                str = "Congrats," + '<@' + hiroID + '>! ' + "That's one of your multis, right?";
+            }
             channel.send(str);
             console.log(str);
         }

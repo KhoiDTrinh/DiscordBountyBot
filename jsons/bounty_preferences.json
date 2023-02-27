@@ -13,11 +13,15 @@
       "Oceanus",
       "Nereus",
       "Devourer",
-      "Strong Bones",
-      "Gargoyle",
       "Darkmaster",
-      "Balor"
-    ]
+      "Ifrit"
+    ],
+    "bountyhours": {
+      "starthour": 13,
+      "startminutes": 0,
+      "endhour": 7,
+      "endminutes": 0
+    }
   },
   "628386552006836226": {
     "username": "AmarAthena",
@@ -28,8 +32,14 @@
       "Darkmaster",
       "Zincarus",
       "Anomaly",
-      "Leviathan"
-    ]
+      "Shadow Fiend"
+    ],
+    "bountyhours": {
+      "starthour": 13,
+      "startminutes": 0,
+      "endhour": 7,
+      "endminutes": 0
+    }
   },
   "468512328757805059": {
     "username": "Seice",
@@ -37,47 +47,48 @@
       "Carnage",
       "Grunt",
       "Titan",
-      "Zincarus",
-      "Iceheart",
       "Anomaly",
       "Shadow Fiend",
       "Leviathan",
-      "Dreadlord"
-    ]
+      "Dreadlord",
+      "Tormentor"
+    ],
+    "bountyhours": {
+      "starthour": 8,
+      "startminutes": 0,
+      "endhour": 1,
+      "endminutes": 0
+    }
   },
   "238305536867696640": {
     "username": "Bag",
     "bounties": [
       "Carnage",
       "Grunt",
-      "Leviathan",
       "Shadow Fiend",
       "Anomaly",
-      "Proteus"
+      "Proteus",
+      "Dreadlord",
+      "Titan"
     ]
   },
   "294948651170660353": {
     "username": "Liitomajava",
     "bounties": [
-      "Lava Eater",
-      "Observer",
-      "Infester",
-      "Scarab",
-      "Pit Viper",
-      "Raptor",
-      "Fleshhunter",
-      "Deathgazer",
-      "Hannibal",
-      "Chaos Seeker",
       "Grand Butcher",
-      "Skeleton Commander",
-      "Vampire"
-    ]
-  },
-  "574544206136344576": {
-    "username": "Damien",
-    "bounties": [
-      "Giant Cyclop"
+      "Arctic Wolfear",
+      "Yeti",
+      "Crystal Golem",
+      "Jin",
+      "Frostsaber",
+      "Hannibal",
+      "Fleshhunter",
+      "Nightmare",
+      "Frost Giant",
+      "Chaos Seeker",
+      "Bone Beast",
+      "Giant Cyclop",
+      "Tormentor"
     ]
   },
   "410293727488245761": {
@@ -104,6 +115,26 @@
       "Titan",
       "Demogorgon",
       "Dreadlord"
+    ],
+    "bountyhours": {
+      "starthour": 7,
+      "startminutes": 0,
+      "endhour": 22,
+      "endminutes": 0
+    }
+  },
+  "253041179048935425": {
+    "username": "cousity",
+    "bounties": [
+      "Carnage",
+      "Grunt",
+      "Titan",
+      "Demogorgon",
+      "Dreadlord",
+      "Zincarus",
+      "Iceheart",
+      "Anomaly",
+      "Shadow Fiend"
     ]
   }
 }
