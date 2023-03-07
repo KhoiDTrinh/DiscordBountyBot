@@ -422,11 +422,6 @@ async function checkPingTimer(message) {
 
         let message_arr = message.content.split('\n');
         let delay = parseTimeString(message_arr);
-        if (delay == 0) {
-            message.reply('Something went wrong, idk what time to ping you.');
-            console.log('Delay of 0 in processing cauldron ping');
-            return;
-        }
 
         if (message.content.includes("will be able to drink in:")) {
             if (message_arr.length < 2) return;
@@ -475,6 +470,15 @@ async function checkPingTimer(message) {
         }
         else if (message.content.includes("Time left: ")) {
             str = '<@' + user + '>' + ' Why am I pinging you again? Prolly aint important.';
+        }
+        else {
+            return;
+        }
+
+        if (delay == 0) {
+            message.reply('Something went wrong, idk what time to ping you.');
+            console.log('Delay of 0 in processing cauldron ping');
+            return;
         }
 
         message.reply(replies[reply_index]);
