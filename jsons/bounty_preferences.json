@@ -6,11 +6,7 @@
       "Spectre",
       "Draugar",
       "Abyss Worm",
-      "Devil Whale",
       "Greenbeard",
-      "Wavehil",
-      "Charybdis",
-      "Oceanus",
       "Nereus",
       "Devourer",
       "Darkmaster",
@@ -31,8 +27,9 @@
       "Draugar",
       "Darkmaster",
       "Zincarus",
-      "Anomaly",
-      "Shadow Fiend"
+      "Shadow Fiend",
+      "Lich",
+      "Anomaly"
     ],
     "bountyhours": {
       "starthour": 13,
@@ -46,12 +43,9 @@
     "bounties": [
       "Carnage",
       "Grunt",
-      "Titan",
       "Anomaly",
       "Shadow Fiend",
-      "Leviathan",
-      "Dreadlord",
-      "Tormentor"
+      "Dreadlord"
     ],
     "bountyhours": {
       "starthour": 8,
@@ -135,6 +129,12 @@
       "Iceheart",
       "Anomaly",
       "Shadow Fiend"
-    ]
+    ],
+    "bountyhours": {
+      "starthour": 16,
+      "startminutes": 0,
+      "endhour": 22,
+      "endminutes": 0
+    }
   }
 }

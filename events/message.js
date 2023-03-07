@@ -302,7 +302,9 @@ async function checkEventMessage(message) {
         const channel = message.client.channels.cache.get(message.channelId);
         const eventRoleId = "813430280583905321";
 
-        if (!message.content.includes("Event: Snowman appeared in the Ice Plains. [Ice Plains]"))
+        if (!message.content.includes("Event: Snowman appeared in the Ice Plains. [Ice Plains]") &&
+            !message.content.includes("Event: Treant Elder appeared in the Reaper's Garden. [Reaper's Garden]")
+        )
             return;
 
         if (message.client.hasOwnProperty('event') && message.client.event == true)
@@ -405,6 +407,107 @@ async function checkTrollMessage(message) {
     }
 }
 
+async function checkPingTimer(message) {
+    let replies = ['k', 'aight', 'i gotchu', 'sure if i remember'];
+    let reply_index = Math.floor(Math.random() * replies.length);
+
+    try {
+        const channel = message.client.channels.cache.get(message.channelId);
+        const user = message.author.id;
+        if (message.content.includes("will be able to drink in:")) {
+            let message_arr = message.content.split('\n');
+            if (message_arr.length < 2) {
+                return;
+            }
+            let time_string = message_arr[1];
+            let delay = parseTimeString(time_string);
+            if (delay == 0) {
+                console.log('Delay of 0 in processing cauldron ping');
+                return;
+            }
+
+            message.reply(replies[reply_index]);
+
+            await wait(delay);
+
+            let str = '<@' + user + '>' + ' Your cauldron is ready now.';
+
+            channel.send(str);
+            console.log(str);
+        }
+        else if (message.content.includes("is still growing!")) {
+            let message_arr = message.content.split('\n');
+            if (message_arr.length < 2) {
+                return;
+            }
+            let time_string = message_arr[1];
+            let delay = parseTimeString(time_string);
+            if (delay == 0) {
+                console.log('Delay of 0 in processing planting ping');
+                return;
+            }
+
+            message.reply(replies[reply_index]);
+
+            await wait(delay);
+
+            let str = '<@' + user + '>' + ' Pick your plants.';
+
+            channel.send(str);
+            console.log(str);
+        }
+    }
+    catch (err) {
+        console.log('Error in processing ping timer');
+        console.log(err);
+        console.log(message);
+    }
+}
+
+//Returns milliseconds
+function parseTimeString(str) {
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    let arr = str.split(' ');
+
+    try {
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i].includes('h.')) {
+                if (arr[i] === 'h.' && i > 0) {
+                    hours = parseInt(arr[i - 1]);
+                }
+                else {
+                    hours = parseInt(arr[i]);
+                }
+            }
+            else if (arr[i].includes('min.')) {
+                if (arr[i] === 'min.' && i > 0) {
+                    minutes = parseInt(arr[i - 1]);
+                }
+                else {
+                    minutes = parseInt(arr[i]);
+                }
+            }
+            else if (arr[i].includes('s.')) {
+                if (arr[i] === 's.' && i > 0) {
+                    seconds = parseInt(arr[i - 1]);
+                }
+                else {
+                    seconds = parseInt(arr[i]);
+                }
+            }
+        }
+    }
+    catch (err) {
+        console.log('Error in parsing time string.');
+        console.log(err);
+    }
+
+    return ((hours * 60 + minutes) * 60 + seconds) * 1000;
+}
+
 module.exports = {
 	name: Events.MessageCreate,
     async execute(message) {
@@ -425,6 +528,10 @@ module.exports = {
             checkDTFrenzyMessage(message);
             checkAuraMessage(message);
             checkTrollMessage(message);
+        }
+
+        if (message.client.channel_whitelist.botspam.includes(message.channelId)) {
+            checkPingTimer(message);
         }
 	},
 };
