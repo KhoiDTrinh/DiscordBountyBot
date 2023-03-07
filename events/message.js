@@ -408,54 +408,79 @@ async function checkTrollMessage(message) {
 }
 
 async function checkPingTimer(message) {
-    let replies = ['k', 'aight', 'i gotchu', 'sure if i remember'];
+    let replies = ['k', 'aight', 'i gotchu', 'sure if i remember', 'maybe later', 'lol gl with that thoughts and prayers'];
     let reply_index = Math.floor(Math.random() * replies.length);
+
+    if (!message.client.hasOwnProperty("planting")) {
+        message.client.planting = {};
+    }
 
     try {
         const channel = message.client.channels.cache.get(message.channelId);
         const user = message.author.id;
+        let str = "";
+
+        let message_arr = message.content.split('\n');
+        let delay = parseTimeString(message_arr);
+        if (delay == 0) {
+            message.reply('Something went wrong, idk what time to ping you.');
+            console.log('Delay of 0 in processing cauldron ping');
+            return;
+        }
+
         if (message.content.includes("will be able to drink in:")) {
-            let message_arr = message.content.split('\n');
-            if (message_arr.length < 2) {
-                return;
-            }
-            let time_string = message_arr[1];
-            let delay = parseTimeString(time_string);
-            if (delay == 0) {
-                console.log('Delay of 0 in processing cauldron ping');
-                return;
-            }
-
-            message.reply(replies[reply_index]);
-
-            await wait(delay);
-
-            let str = '<@' + user + '>' + ' Your cauldron is ready now.';
-
-            channel.send(str);
-            console.log(str);
+            if (message_arr.length < 2) return;
+            delay += 60 * 1000;
+            str = '<@' + user + '>' + ' Your cauldron is ready now.';
         }
         else if (message.content.includes("is still growing!")) {
-            let message_arr = message.content.split('\n');
-            if (message_arr.length < 2) {
-                return;
-            }
-            let time_string = message_arr[1];
-            let delay = parseTimeString(time_string);
-            if (delay == 0) {
-                console.log('Delay of 0 in processing planting ping');
-                return;
-            }
+            if (message_arr.length < 2) return;
+            str = '<@' + user + '>' + ' Pick your plants.';
 
+            message.client.planting[user] = true;
             message.reply(replies[reply_index]);
 
             await wait(delay);
-
-            let str = '<@' + user + '>' + ' Pick your plants.';
+            message.client.planting[user] = false;
 
             channel.send(str);
             console.log(str);
+
+            await wait(20 * 60 * 1000);
+            if (message.client.planting[user] == false) {
+                str = '<@' + user + '>' + ' You forgot to ask me to ping for herbalism. Did you forget to replant?';
+                channel.send(str);
+                console.log(str);
+            }
+            return;
         }
+        else if (message.content.includes("have successfully started to rise") || message.content.includes("are rising from the Dead!")) {
+            if (message_arr.length < 2) return;
+            str = '<@' + user + '>' + ' Yo dawg, time to check Hades.';
+        }
+        else if (message.content.includes("Wild Captcha Event in:")) {
+            if (message_arr.length < 2) return;
+            delay -= (29 * 60 * 1000);
+            if (delay <= 0) {
+                message.reply('Maybe just do your botcheck now...');
+                return;
+            }
+            str = '<@' + user + '>' + ' Botcheck within half an hour.';
+        }
+        else if (message.content.includes("Your Pet is Exploring")) {
+            str = '<@' + user + '>' + ' Your pet is done exploring.';
+        }
+        else if (message.content.includes("Your Pet is Training.")) {
+            str = '<@' + user + '>' + ' Your pet is done training.';
+        }
+        else if (message.content.includes("Time left: ")) {
+            str = '<@' + user + '>' + ' Why am I pinging you again? Prolly aint important.';
+        }
+
+        message.reply(replies[reply_index]);
+        await wait(delay);
+        channel.send(str);
+        console.log(str);
     }
     catch (err) {
         console.log('Error in processing ping timer');
@@ -465,44 +490,45 @@ async function checkPingTimer(message) {
 }
 
 //Returns milliseconds
-function parseTimeString(str) {
+function parseTimeString(msg_arr) {
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
 
-    let arr = str.split(' ');
-
-    try {
-        for (let i = 0; i < arr.length; i++) {
-            if (arr[i].includes('h.')) {
-                if (arr[i] === 'h.' && i > 0) {
-                    hours = parseInt(arr[i - 1]);
+    for (let row = 0; row < msg_arr.length; row++) {
+        let arr = msg_arr[row].split(' ');
+        try {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].includes('h.')) {
+                    if (arr[i] === 'h.' && i > 0) {
+                        hours += parseInt(arr[i - 1]);
+                    }
+                    else {
+                        hours += parseInt(arr[i]);
+                    }
                 }
-                else {
-                    hours = parseInt(arr[i]);
+                else if (arr[i].includes('min.')) {
+                    if (arr[i] === 'min.' && i > 0) {
+                        minutes += parseInt(arr[i - 1]);
+                    }
+                    else {
+                        minutes += parseInt(arr[i]);
+                    }
                 }
-            }
-            else if (arr[i].includes('min.')) {
-                if (arr[i] === 'min.' && i > 0) {
-                    minutes = parseInt(arr[i - 1]);
-                }
-                else {
-                    minutes = parseInt(arr[i]);
-                }
-            }
-            else if (arr[i].includes('s.')) {
-                if (arr[i] === 's.' && i > 0) {
-                    seconds = parseInt(arr[i - 1]);
-                }
-                else {
-                    seconds = parseInt(arr[i]);
+                else if (arr[i].includes('s.')) {
+                    if (arr[i] === 's.' && i > 0) {
+                        seconds += parseInt(arr[i - 1]);
+                    }
+                    else {
+                        seconds += parseInt(arr[i]);
+                    }
                 }
             }
         }
-    }
-    catch (err) {
-        console.log('Error in parsing time string.');
-        console.log(err);
+        catch (err) {
+            console.log('Error in parsing time string.');
+            console.log(err);
+        }
     }
 
     return ((hours * 60 + minutes) * 60 + seconds) * 1000;
