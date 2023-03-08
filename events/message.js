@@ -408,7 +408,7 @@ async function checkTrollMessage(message) {
 }
 
 async function checkPingTimer(message) {
-    let replies = ['k', 'aight', 'i gotchu', 'sure if i remember', 'maybe later', 'lol gl with that thoughts and prayers'];
+    let replies = ['k', 'aight', 'i gotchu', 'sure if i remember', 'maybe later', 'lol gl with that thoughts and prayers', 'u gonna ignore the ping anyways...', 'sure sure sure', 'you even gonna be awake?'];
     let reply_index = Math.floor(Math.random() * replies.length);
 
     if (!message.client.hasOwnProperty("planting")) {
@@ -432,17 +432,16 @@ async function checkPingTimer(message) {
             if (message_arr.length < 2) return;
             str = '<@' + user + '>' + ' Pick your plants.';
 
-            message.client.planting[user] = true;
+            message.client.planting[user] = message.id;
             message.reply(replies[reply_index]);
 
             await wait(delay);
-            message.client.planting[user] = false;
 
             channel.send(str);
             console.log(str);
 
             await wait(20 * 60 * 1000);
-            if (message.client.planting[user] == false) {
+            if (message.client.planting[user] === message.id) {
                 str = '<@' + user + '>' + ' You forgot to ask me to ping for herbalism. Did you forget to replant?';
                 channel.send(str);
                 console.log(str);
@@ -451,7 +450,7 @@ async function checkPingTimer(message) {
         }
         else if (message.content.includes("have successfully started to rise") || message.content.includes("are rising from the Dead!")) {
             if (message_arr.length < 2) return;
-            str = '<@' + user + '>' + ' Yo dawg, time to check Hades.';
+            str = '<@' + user + '>' + ' Yo, time to check Hades.';
         }
         else if (message.content.includes("Wild Captcha Event in:")) {
             if (message_arr.length < 2) return;
@@ -469,7 +468,12 @@ async function checkPingTimer(message) {
             str = '<@' + user + '>' + ' Your pet is done training.';
         }
         else if (message.content.includes("Time left: ")) {
-            str = '<@' + user + '>' + ' Why am I pinging you again? Prolly aint important.';
+            if (message_arr.length > 1) {
+                str = '<@' + user + '>' + "Not sure why I'm pinging you. Maybe it was for: " + message_arr[0] + "\nBut I ain't an AI bot so idk";
+            }
+            else {
+                str = '<@' + user + '>' + ' Why am I pinging you again? Prolly aint important.';
+            }
         }
         else {
             return;
